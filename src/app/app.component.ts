@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ListComponent } from "./list/list.component";
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  static id: number = 0;
+  static id: number = 1;
   priority: number = 0;
   description: string = "";
   items: Record[] = [];
@@ -24,6 +24,10 @@ export class AppComponent {
       description: this.description
     };
     this.items.push(record);
+  }
+
+  onRecordRemoved(items: Record[]){
+    this.items = items;
   }
 
 }

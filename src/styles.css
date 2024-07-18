@@ -12,6 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-content: center;
+    text-align: center;
     
 }
 h1{
@@ -21,7 +22,7 @@ main{
     display: flex;
     border: 1px solid black;
     flex-direction: column;
-    width: 70vw;
+    width: 50vw;
     height: 80wh;
     border-radius: 20px;
     margin: 10px;
