@@ -3,8 +3,8 @@
   <div class="container">
   <input class="input-style" type="text" id="text-input" placeholder="Description" [(ngModel)]="description">
   <input class="input-style" type="number" id="number-input" placeholder="Priority" [(ngModel)]="priority">
-  <button class="input-style">Add</button>
+  <button class="input-style" (click)="addRecord()">Add</button>
   </div>
-  <app-list items="items"></app-list>
+  <app-list [items]="items"></app-list>
 </main>
 <router-outlet></router-outlet>

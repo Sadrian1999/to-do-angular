@@ -14,13 +14,17 @@ export class AppComponent {
   static id: number = 0;
   priority: number = 0;
   description: string = "";
-  items = [];
+  items: Record[] = [];
 
-  record: Record = {
-    id: AppComponent.id++,
-    priority: this.priority,
-    description: this.description
-  };
+  
+  addRecord(){
+    const record: Record = {
+      id: AppComponent.id++,
+      priority: this.priority,
+      description: this.description
+    };
+    this.items.push(record);
+  }
 
 }
 export interface Record{
