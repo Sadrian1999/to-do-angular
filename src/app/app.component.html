@@ -5,6 +5,6 @@
     <input class="input-style" type="number" id="number-input" placeholder="Priority" [(ngModel)]="priority" min="0" max="1" step="0.1" required="true">
     <button class="input-style" (click)="addRecord()">Add</button>
   </div>
-  <app-list [items]="items" (recordRemoved)="onRecordRemoved($event)"></app-list>
+  <app-list [recordHandling]="recordHandling"></app-list>
 </main>
 <router-outlet></router-outlet>

@@ -1,12 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Record } from '../app.component';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Record } from '../Record';
+import { RecordHandling } from '../RecordHandling';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   imports: [],
   template: `
-  @for (item of items; track item.id){
+  @for (item of recordHandling.getRecords(); track item.id){
     <div class="container">
       <div class="item">{{item.id}}</div>
       <div class="item">{{item.description}}</div>
@@ -20,11 +21,9 @@ import { Record } from '../app.component';
   styleUrl: './list.component.css'
 })
 export class ListComponent {
-  @Input() items: Record[] = [];
-  @Output() recordRemoved = new EventEmitter<Record[]>();
+  @Input() recordHandling: RecordHandling = inject(RecordHandling);
 
   removeRecord(id: number){
-    this.items.splice(id - 1, 1);
-    this.recordRemoved.emit(this.items);
+    this.recordHandling.removeRecord(undefined,id);
   }
 }
