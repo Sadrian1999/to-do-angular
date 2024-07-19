@@ -9,10 +9,10 @@ import { RecordHandling } from '../RecordHandling';
   template: `
   @for (item of recordHandling.getRecords(); track item.id){
     <div class="container">
-      <div class="item">{{item.id}}</div>
-      <div class="item">{{item.description}}</div>
-      <div class="item">{{item.priority}}</div>
-      <button (click)="removeRecord(item.id)">Remove</button>
+      <div class="item">ID: {{item.id}}</div>
+      <div class="item">Description: {{item.description}}</div>
+      <div class="item">Priority: {{item.priority}}</div>
+      <button class="input-style" (click)="removeRecord(item.id)">Remove</button>
   </div>
   }@empty {
     <div>Nincs itt semmi gyászos</div>
