@@ -2,9 +2,12 @@
 <main>
   <div class="container">
     <input class="input-style" type="text" id="text-input" placeholder="Description" [(ngModel)]="description" required="true">
-    <input class="input-style" type="number" id="number-input" placeholder="Priority" [(ngModel)]="priority" min="0" max="1" step="0.1" required="true">
+    <input class="input-style" type="number" id="number-input" placeholder="Prio" [(ngModel)]="priority" min="0" max="1" step="0.1" required="true">
     <button class="input-style" (click)="addRecord()">Add</button>
   </div>
-  <app-list [items]="items" (recordRemoved)="onRecordRemoved($event)"></app-list>
+  <div class="message-box" [style.display]="isHidden ? 'none' : 'block'">
+    <p>{{errorMessage}}</p>
+  </div>
+  <app-list [recordHandling]="recordHandling"></app-list>
 </main>
 <router-outlet></router-outlet>

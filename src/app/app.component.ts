@@ -1,7 +1,12 @@
-import { Component, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ListComponent } from "./list/list.component";
 import { FormsModule } from '@angular/forms';
+import { RecordHandling } from './RecordHandling';
+import { Record } from './Record';
+import { DescriptionValidator } from './DescriptionValidator';
+import { PriorityValidator } from './PriorityValidator';
+
 
 @Component({
   selector: 'app-root',
@@ -11,28 +16,43 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  recordHandling = inject(RecordHandling);
+  items: Record[] = this.recordHandling.getRecords();
+
   static id: number = 1;
   priority: number = 0;
   description: string = "";
-  items: Record[] = [];
 
-  
+  errorMessage: string = "";
+  isHidden: boolean = true;
+
+  descriptionValidator: DescriptionValidator = new DescriptionValidator(this.description);
+  priorityValidator: PriorityValidator = new PriorityValidator(this.priority);
+
   addRecord(){
-    const record: Record = {
-      id: AppComponent.id++,
-      priority: this.priority,
-      description: this.description
-    };
-    this.items.push(record);
+    this.isHidden = true;
+    this.updateValidators();
+    this.descriptionValidator.validate();
+    try{
+      this.priorityValidator.validate();
+    }
+    catch (error){
+      if(error instanceof Error){
+        this.errorMessage = error.message;
+        this.isHidden = false;
+        return;
+      }
+    }
+    const record: Record = {id: AppComponent.id++, description: this.descriptionValidator.getData(), priority: this.priorityValidator.getData()};
+    this.recordHandling.addRecord(record);
+    this.resetFields();
   }
-
-  onRecordRemoved(items: Record[]){
-    this.items = items;
+  updateValidators(){
+    this.descriptionValidator = new DescriptionValidator(this.description);
+    this.priorityValidator= new PriorityValidator(this.priority);  
   }
-
-}
-export interface Record{
-  id: number;
-  priority: number;
-  description: string;
+  resetFields(){
+    this.description = "";
+    this.priority = 0;
+  }
 }
